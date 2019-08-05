@@ -6,6 +6,7 @@ public class User {
 
 	@Id
 	private String userId;
+	private String userPw;
 	private String userName;
 	private String regUser;
 	private String regDt;
@@ -16,6 +17,12 @@ public class User {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public String getUserPw() {
+		return userPw;
+	}
+	public void setUserPw(String userPw) {
+		this.userPw = userPw;
 	}
 	public String getUserName() {
 		return userName;
