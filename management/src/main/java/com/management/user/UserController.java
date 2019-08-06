@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -20,13 +19,20 @@ public class UserController {
 			
 			return "/html/user/login";
 		}
-		
-//		@PostMapping("login.do")
+
 		@RequestMapping(value="login.do", method = RequestMethod.POST)
 		public String loginDo(User user) {
 			System.out.println("user id : " + user.getUserId());
 			System.out.println("user pw : " + user.getUserPw());
-			System.out.println("로그인 성공 !!");
+			
+			if(user.getUserId() == null || user.getUserId() == "") {
+				System.out.println("아이디를 입력해주세요.");
+			}else if(user.getUserPw() == null || user.getUserPw() == "") {
+				System.out.println("패스워드를 입력해주세요.");
+			}else {
+				System.out.println("로그인 성공 !!");
+			}
+			
 			return "html/user/login";
 		}
 }
