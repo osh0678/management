@@ -31,6 +31,7 @@ public class UserController {
 				System.out.println("패스워드를 입력해주세요.");
 			}else {
 				System.out.println("로그인 성공 !!");
+				return "html/com/main";
 			}
 			
 			return "html/user/login";

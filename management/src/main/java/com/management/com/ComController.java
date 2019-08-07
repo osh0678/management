@@ -27,7 +27,7 @@ public class ComController {
 		
 		System.out.println("user : " + user);
 
-		return "/html/user/login";
+		return "/html/com/main";
 	}
 
 }
