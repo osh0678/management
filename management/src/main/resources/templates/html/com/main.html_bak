@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+main 입니다.
+
+<a href="main.vw">메인으로!!!</a>
+
+<table border="1">
+	<thead>
+		<tr>
+			<th>고유번호</th>
+			<th>고객명</th>
+			<th>핸드폰번호</th>
+			<th>통신사</th>
+			<th>주민번호</th>
+			<th>등급</th>
+			<th>직장구분</th>
+			<th>직장명</th>
+			<th>재직유무</th>
+			<th>자가유무</th>
+			<th>주거종류</th>
+			<th>연봉</th>
+			<th>지역</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>C00001</td>
+			<td>홍길동</td>
+			<td>010-1111-1111</td>
+			<td>SKT</td>
+			<td>000000-0000000</td>
+			<td>1등급</td>
+			<td>금융권</td>
+			<td>KB생명보험</td>
+			<td>재직중</td>
+			<td>보유</td>
+			<td>주택</td>
+			<td>7천만원</td>
+			<td>서울시 강남구</td>
+		</tr>
+	</tbody>
+</table>
+</body>
+</html>
