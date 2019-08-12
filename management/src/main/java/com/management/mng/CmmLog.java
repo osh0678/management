@@ -1,14 +1,16 @@
 package com.management.mng;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import org.springframework.stereotype.Controller;
-
-@Controller
 @Entity
+@Table(name="cmm_log")
 public class CmmLog {
-
+	
+	@Id
 	private String userNo;
+	
 	private String userName;
 	private String logDt;
 	private String retryCall;
