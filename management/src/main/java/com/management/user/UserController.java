@@ -2,11 +2,16 @@ package com.management.user;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/usr")
@@ -21,8 +26,8 @@ public class UserController {
 			return "/html/user/login";
 		}
 
-		@RequestMapping(value="login.do", method = RequestMethod.POST)
-		public String loginDo(User user) {
+		@RequestMapping(value="/login.do", method = RequestMethod.POST)
+		public String loginDo(User user) throws Exception{
 			System.out.println("user id : " + user.getUserId());
 			System.out.println("user pw : " + user.getUserPw());
 			
@@ -32,9 +37,9 @@ public class UserController {
 				System.out.println("패스워드를 입력해주세요.");
 			}else {
 				System.out.println("로그인 성공 !!");
-				return "html/com/main";
+				return "redirect:/com/main.vw";
 			}
 			
-			return "html/user/login";
+			return "redirect:login.vw";
 		}
 }

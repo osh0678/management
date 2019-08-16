@@ -21,10 +21,11 @@ public class ComController {
 		AppServletUtil app = new AppServletUtil();
 		users.add(user);
 		
+		System.out.println("user ID : " + user.getUserId());
 		if(!app.isLogin(user.getUserId())){
 			System.out.println("로그인 화면으로 돌아갑니다.");
 			System.out.println(app.isLogin(user.getUserId()));
-			return "redirect:login.vw";
+			return "redirect:/usr/login.vw";
 		}
 		
 		System.out.println("user : " + user);
