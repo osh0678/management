@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.management.user.User;
 
@@ -19,6 +20,8 @@ public class ComController {
 	@GetMapping("/main.vw")
 	public String mainVw(User user,HttpServletRequest request, HttpServletResponse response) {
 		AppServletUtil app = new AppServletUtil();
+		ModelAndView mv = new ModelAndView();
+		
 		users.add(user);
 		
 		System.out.println("user ID : " + user.getUserId());
@@ -29,8 +32,8 @@ public class ComController {
 		}
 		
 		System.out.println("user : " + user);
-
-		return "/html/com/main";
+//		mv.setViewName("");
+		return "html/com/main";
 	}
 
 }
