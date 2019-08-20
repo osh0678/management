@@ -76,9 +76,9 @@
                                                 <th scope="col">기존부채현황</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbodyㅣ>
                                             <tr th:each="row: ${list}">
-                                                <th scope="row" class="text-center">1</th>
+                                                <th th:text="${rowStat.count}" scope="row" class="text-center"></th>
                                                 <td th:text="${row.logDt}" class="text-center"></td>
                                                 <td th:text="${row.userNo}" class="text-center"></td>
                                                 <td th:text="${row.userName}" class="text-center"></td>
