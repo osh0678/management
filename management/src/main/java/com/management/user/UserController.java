@@ -19,7 +19,7 @@ public class UserController {
 			users.add(user);
 			System.out.println("user : " + user);
 			
-			return "/html/user/login";
+			return "user/login";
 		}
 
 		@RequestMapping(value="/login.do", method = RequestMethod.POST)

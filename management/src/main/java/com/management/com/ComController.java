@@ -33,7 +33,7 @@ public class ComController {
 		
 		System.out.println("user : " + user);
 //		mv.setViewName("");
-		return "html/com/main";
+		return "com/main";
 	}
 
 }
