@@ -23,7 +23,7 @@ public class MngController {
 	public String cmmlogVw(Model model){
 		model.addAttribute("list", cmmRepository.findAll());
 		
-		return "/html/mng/cmmlog";
+		return "mng/cmmlog";
 	}
 	
 }
