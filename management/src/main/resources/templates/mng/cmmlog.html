@@ -7,8 +7,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>고객관리페이지</title>
+<style type="text/css">
+	.mb-3{
+		margin-top: 10px
+	}
+</style>
 </head>
-
 <body>
     <!-- ============================================================== -->
     <!-- main wrapper -->
@@ -62,8 +66,21 @@
                         <!-- ============================================================== -->
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="card">
-                                <h5 class="card-header">고객이력테이블</h5>
+                             	<h5 class="card-header">상담이력</h5>
+
                                 <div class="card-body">
+                                 	
+                                 	<div class="row">
+                                		<div class="col-md-9"></div>
+										<div class="input-group mb-3 col-md-3">
+											<input type="text" class="form-control"/>
+											<div class="input-group-append">
+<!-- 	                                			<button type="button" class="btn btn-primary">검색</button> original tag-->
+	                                			<a href="#" class="btn btn-primary">검색</a>
+                                			</div>
+                                		</div>
+                                	</div>
+                                	
                                     <table class="table table-hover "><!-- table-responsive -->
                                         <thead>
                                             <tr class="text-center">
@@ -76,7 +93,7 @@
                                                 <th scope="col">기존부채현황</th>
                                             </tr>
                                         </thead>
-                                        <tbodyㅣ>
+                                        <tbody>
                                             <tr th:each="row: ${list}">
                                                 <th th:text="${rowStat.count}" scope="row" class="text-center"></th>
                                                 <td th:text="${row.logDt}" class="text-center"></td>
@@ -99,7 +116,7 @@
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-	            <th:block th:include="fragments/footer"></th:block>
+<!-- 	            <th:block th:include="fragments/footer"></th:block> -->
             <!-- ============================================================== -->
             <!-- end footer -->
             <!-- ============================================================== -->
