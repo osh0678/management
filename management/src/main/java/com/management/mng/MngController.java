@@ -17,13 +17,23 @@ public class MngController {
 	private List<CmmLog> cmmlog = new ArrayList<CmmLog>();
 	
 	@Autowired
-	private CmmRepository cmmRepository;
+	private LogRepository logRepository;
+	
+	@Autowired
+	private InfoRepository infoRepository;
 	
 	@GetMapping("/cmmlog.vw")
 	public String cmmlogVw(Model model){
-		model.addAttribute("list", cmmRepository.findAll());
+		model.addAttribute("list", logRepository.findAll());
 		
 		return "mng/cmmlog";
 	}
 	
+	@GetMapping("/cmmInfo.vw")
+	public String cmmInfoVw(Model model){
+		model.addAttribute("list", infoRepository.findAll());
+		
+		return "mng/cmmInfo";
+		
+	}
 }

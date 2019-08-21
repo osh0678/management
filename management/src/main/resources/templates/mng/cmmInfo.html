@@ -1,0 +1,137 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layout/default">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>고객관리페이지</title>
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- main wrapper -->
+    <!-- ============================================================== -->
+    <div class="dashboard-main-wrapper">
+        <!-- ============================================================== -->
+        <!-- navbar -->
+        <!-- ============================================================== -->
+        	<th:block th:include="fragments/header"></th:block>
+        <!-- ============================================================== -->
+        <!-- end navbar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- left sidebar -->
+        <!-- ============================================================== -->
+			<th:block th:include="fragments/leftMenu"></th:block>
+        <!-- ============================================================== -->
+        <!-- end left sidebar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- wrapper  -->
+        <!-- ============================================================== -->
+        <div class="dashboard-wrapper">
+            <div class="container-fluid  dashboard-content">
+                <!-- ============================================================== -->
+                <!-- pageheader -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="page-header">
+                            <h2 class="pageheader-title">고객 이력 </h2>
+                            <p class="pageheader-text">Test</p>
+                            <div class="page-breadcrumb">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">고객관리</a></li>
+<!--                                         <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Tables</a></li> -->
+                                        <li class="breadcrumb-item active" aria-current="page">고객이력</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- end pageheader -->
+                <!-- ============================================================== -->
+                    <div class="row">
+                        <!-- ============================================================== -->
+                        <!-- hoverable table -->
+                        <!-- ============================================================== -->
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="card">
+                                <h5 class="card-header">고객이력테이블</h5>
+                                <div class="card-body">
+                                    <table class="table table-hover "><!-- table-responsive -->
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th scope="col">번호</th>
+                                                <th scope="col">고객 이름</th>
+                                                <th scope="col">통신사</th>
+                                                <th scope="col">핸드폰번호</th>
+                                                <th scope="col">주민번호</th>
+                                                <th scope="col">신용등급</th>
+                                                <th scope="col">연봉</th>
+                                                <th scope="col">직장명</th>
+                                                <th scope="col">직장구분</th>
+                                                <th scope="col">재직유무</th>
+                                                <th scope="col">자가유무</th>
+                                                <th scope="col">주거종류</th>
+                                                <th scope="col">지역</th>
+                                            </tr>
+                                        </thead>
+                                        <tbodyㅣ>
+                                            <tr th:each="row: ${list}">
+                                                <th th:text="${rowStat.count}" scope="row" class="text-center"></th>
+                                                <td th:text="${row.userName}" class="text-center"></td>
+                                                <td th:text="${row.telecomType}" class="text-center"></td>
+                                                <td th:text="${row.phoneId}" class="text-center"></td>
+                                                <td th:text="${row.userSeq}" class="text-left"></td>
+                                                <td th:text="${row.creditRating}" class="text-left"></td>
+                                                <td th:text="${row.salary}" class="text-left"></td>
+                                                <td th:text="${row.workName}" class="text-left"></td>
+                                                <td th:text="${row.workType}" class="text-left"></td>
+                                                <td th:text="${row.workYn}" class="text-left"></td>
+                                                <td th:text="${row.carYn}" class="text-left"></td>
+                                                <td th:text="${row.houseType}" class="text-left"></td>
+                                                <td th:text="${row.location}" class="text-left"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ============================================================== -->
+                        <!-- end hoverable table -->
+                        <!-- ============================================================== -->
+                    </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+	            <th:block th:include="fragments/footer"></th:block>
+            <!-- ============================================================== -->
+            <!-- end footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- end wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- end main wrapper  -->
+    <!-- ============================================================== -->
+    
+	<!-- ============================================================== -->
+    <!-- javascript -->
+    <!-- ============================================================== -->
+		<th:block th:include="fragments/script"></th:block>
+	<!-- ============================================================== -->
+    <!-- end javascript -->
+    <!-- ============================================================== -->
+    
+</body>
+ 
+</html>
