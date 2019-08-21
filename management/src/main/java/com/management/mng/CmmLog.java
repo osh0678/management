@@ -9,13 +9,13 @@ import javax.persistence.Table;
 public class CmmLog {
 	
 	@Id
-	private String userNo;
+	private String userNo;     //고객 키값
 	
-	private String userName;
-	private String logDt;
-	private String retryCall;
-	private String rmk;
-	private String existCash;
+	private String userName;   //고객이름
+	private String logDt;      //로그 이력
+	private String retryCall;  //재콜
+	private String rmk;        //내용
+	private String existCash;  //부채
 	public String getUserNo() {
 		return userNo;
 	}
