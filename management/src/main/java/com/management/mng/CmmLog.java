@@ -53,5 +53,4 @@ public class CmmLog {
 		this.existCash = existCash;
 	}
 	
-	
 }

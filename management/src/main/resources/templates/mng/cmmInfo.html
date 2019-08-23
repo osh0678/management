@@ -82,21 +82,21 @@
                                                 <th scope="col">지역</th>
                                             </tr>
                                         </thead>
-                                        <tbodyㅣ>
-                                            <tr th:each="row: ${list}">
-                                                <th th:text="${rowStat.count}" scope="row" class="text-center"></th>
-                                                <td th:text="${row.userName}" class="text-center"></td>
-                                                <td th:text="${row.telecomType}" class="text-center"></td>
-                                                <td th:text="${row.phoneId}" class="text-center"></td>
-                                                <td th:text="${row.userSeq}" class="text-left"></td>
-                                                <td th:text="${row.creditRating}" class="text-left"></td>
-                                                <td th:text="${row.salary}" class="text-left"></td>
-                                                <td th:text="${row.workName}" class="text-left"></td>
-                                                <td th:text="${row.workType}" class="text-left"></td>
-                                                <td th:text="${row.workYn}" class="text-left"></td>
-                                                <td th:text="${row.carYn}" class="text-left"></td>
-                                                <td th:text="${row.houseType}" class="text-left"></td>
-                                                <td th:text="${row.location}" class="text-left"></td>
+                                        <tbody>
+                                            <tr th:each="row: ${list}"  class="text-center">
+                                                <th th:text="${rowStat.count}" scope="row"></th>
+                                                <td th:text="${row.userName}"></td>
+                                                <td th:text="${row.telecomType}"></td>
+                                                <td th:text="${row.phoneId}"></td>
+                                                <td th:text="${row.userSeq}"></td>
+                                                <td th:text="${row.creditRating}"></td>
+                                                <td th:text="${row.salary}"></td>
+                                                <td th:text="${row.workName}"></td>
+                                                <td th:text="${row.workType}"></td>
+                                                <td th:text="${row.workYn}"></td>
+                                                <td th:text="${row.carYn}"></td>
+                                                <td th:text="${row.houseType}"></td>
+                                                <td th:text="${row.location}"></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -111,7 +111,7 @@
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-	            <th:block th:include="fragments/footer"></th:block>
+<!-- 	            <th:block th:include="fragments/footer"></th:block> -->
             <!-- ============================================================== -->
             <!-- end footer -->
             <!-- ============================================================== -->
