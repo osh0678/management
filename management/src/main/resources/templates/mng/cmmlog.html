@@ -71,7 +71,12 @@
                                 <div class="card-body">
                                  	
                                  	<div class="row">
-                                		<div class="col-md-9"></div>
+                                		<div class="col-md-8"></div>
+                                		<div class="col-md-1"> 
+											<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addLog">
+  												상담이력추가
+											</button>
+                                		</div>
 										<div class="input-group mb-3 col-md-3">
 											<input type="text" class="form-control"/>
 											<div class="input-group-append">
@@ -112,6 +117,53 @@
                         <!-- end hoverable table -->
                         <!-- ============================================================== -->
                     </div>
+                    <!-- Modal -->
+					<div class="modal fade" id="addLog" tabindex="-1" role="dialog" aria-labelledby="ModalLabel">
+  						<div class="modal-dialog modal-lg" role="document">
+                            <form action="addLog.do" method="GET">
+    							<div class="modal-content">
+      								<div class="modal-header">
+        								<h4 class="modal-title" id="ModalLabel">상담 이력 추가</h4>
+        								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      								</div>
+    	  							<div class="modal-body">
+      									<div class="card">
+                                			<div class="card-body">
+                                        		<div class="form-group row">
+                                            		<label class="col-12 col-sm-3 col-form-label text-sm-right">고객이름</label>
+                                            			<div class="col-12 col-sm-8 col-lg-6">
+                                                			<input type="text" name="userName" placeholder="고객 이름을 적어주세요." class="form-control">
+                                            			</div>
+                                        		</div>
+                                        		<div class="form-group row">
+                                            		<label class="col-12 col-sm-3 col-form-label text-sm-right">재콜</label>
+                                            			<div class="col-12 col-sm-8 col-lg-6">
+                                                			<input type="text" name="retryCall" placeholder="재콜을 적어주세요." class="form-control">
+                                            			</div>
+                                        		</div>
+                                        		<div class="form-group row">
+                                            		<label class="col-12 col-sm-3 col-form-label text-sm-right">내용</label>
+                                            		<div class="col-12 col-sm-8 col-lg-6">
+                                                		<input type="text" name="rmk" placeholder="내용을 적어주세요." class="form-control">
+                                            		</div>
+                                        		</div>
+                                        		<div class="form-group row">
+                                            		<label class="col-12 col-sm-3 col-form-label text-sm-right">기존부채현황</label>
+                                            		<div class="col-12 col-sm-8 col-lg-6">
+                                                		<input type="text" name="existCash" placeholder="기존부채현황 적어주세요." class="form-control">
+                                            		</div>
+                                        		</div>
+                                			</div>
+                            			</div>
+	      							</div>
+      								<div class="modal-footer">
+        								<button type="submit" class="btn btn-primary">저장</button>
+	        							<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+    	  							</div>
+    							</div>
+                            </form>
+  						</div>
+					</div>
             </div>
             <!-- ============================================================== -->
             <!-- footer -->

@@ -1,21 +1,16 @@
 package com.management.mng;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.management.mng.CmmLog;
 
 @Controller
 @RequestMapping("/mng")
@@ -29,12 +24,27 @@ public class MngController {
 	}
 	
 	@GetMapping("/cmmlog.vw")
-	public String cmmlogVw(@PageableDefault Pageable pageable, Model model){
+	public String cmmlogVw(@PageableDefault Pageable pageable, Model model,CmmLog cmmLog){
 		Page<CmmLog> logPage = logService.cmmInfoVW(pageable);
+		System.out.println("getUserName : " + cmmLog.getUserName());
+		System.out.println("getRetryCall : " + cmmLog.getRetryCall());
+		System.out.println("getRmk : " + cmmLog.getRmk());
+		System.out.println("getExistCash : " + cmmLog.getExistCash());
+		
 		model.addAttribute("list", logPage);
 		
 		return "mng/cmmlog";
 	}
+	
+	@RequestMapping(value="/addLog.do", method = RequestMethod.GET)
+	public String addLogDo(CmmLog cmmLog, RedirectAttributes redirectAttributes) {
+		System.out.println("addLog");
+		
+		redirectAttributes.addFlashAttribute("cmmLog", cmmLog);
+		return "redirect:/mng/cmmlog.vw";
+	}
+	
+	
 
 	@GetMapping("/cmmInfo.vw")
 	public String cmmInfoVw(@PageableDefault Pageable pageable, Model model) {
@@ -42,4 +52,5 @@ public class MngController {
 		model.addAttribute("list", infoPage);
 		return "mng/cmmInfo";
 	}
+	
 }
