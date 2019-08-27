@@ -21,23 +21,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/mng")
 public class MngController {
 	private InfoService infoService;
+	private LogService logService;
 	
-	public MngController(InfoService infoService) {
+	public MngController(InfoService infoService, LogService logService) {
 		this.infoService = infoService;
+		this.logService = logService;
 	}
 	
-	private List<CmmLog> cmmlog = new ArrayList<CmmLog>();
-	
-	@Autowired
-	private LogRepository logRepository;
-	
-	@Autowired
-	private InfoRepository infoRepository;
-	
-	
 	@GetMapping("/cmmlog.vw")
-	public String cmmlogVw(Model model){
-		model.addAttribute("list", logRepository.findAll());
+	public String cmmlogVw(@PageableDefault Pageable pageable, Model model){
+		Page<CmmLog> logPage = logService.cmmInfoVW(pageable);
+		model.addAttribute("list", logPage);
 		
 		return "mng/cmmlog";
 	}
