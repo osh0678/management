@@ -1,5 +1,6 @@
 package com.management.mng;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -17,6 +18,12 @@ import com.management.mng.CmmLog;
 public class MngController {
 	private InfoService infoService;
 	private LogService logService;
+	@Autowired
+	private InfoRepository infoRepository;
+	
+	@Autowired
+	private LogRepository logRepository;
+	
 	
 	public MngController(InfoService infoService, LogService logService) {
 		this.infoService = infoService;
@@ -26,11 +33,6 @@ public class MngController {
 	@GetMapping("/cmmlog.vw")
 	public String cmmlogVw(@PageableDefault Pageable pageable, Model model,CmmLog cmmLog){
 		Page<CmmLog> logPage = logService.cmmInfoVW(pageable);
-		System.out.println("getUserName : " + cmmLog.getUserName());
-		System.out.println("getRetryCall : " + cmmLog.getRetryCall());
-		System.out.println("getRmk : " + cmmLog.getRmk());
-		System.out.println("getExistCash : " + cmmLog.getExistCash());
-		
 		model.addAttribute("list", logPage);
 		
 		return "mng/cmmlog";
@@ -39,6 +41,13 @@ public class MngController {
 	@RequestMapping(value="/addLog.do", method = RequestMethod.GET)
 	public String addLogDo(CmmLog cmmLog, RedirectAttributes redirectAttributes) {
 		System.out.println("addLog");
+		// log로 추후 업데이트
+		System.out.println("getUserName : " + cmmLog.getUserName());
+		System.out.println("getRetryCall : " + cmmLog.getRetryCall());
+		System.out.println("getRmk : " + cmmLog.getRmk());
+		System.out.println("getExistCash : " + cmmLog.getExistCash());
+		
+		//logRepository.save(cmmLog); insert 기능
 		
 		redirectAttributes.addFlashAttribute("cmmLog", cmmLog);
 		return "redirect:/mng/cmmlog.vw";
