@@ -9,14 +9,15 @@ import javax.persistence.Table;
 public class CmmLog {
 	
 	@Id
-	private String userNo;     //고객 키값
+	private String userNo;		//고객 키값
 	
-	private String userName;   //고객이름
-	private String logDt;      //로그 이력
-	private String retryCall;  //재콜
-	private String rmk;        //내용
-	private String existCash;  //부채
-	private int logNo;		   //로그 번호
+	private String userName;	//고객이름
+	private String logDt;		//로그 이력
+	private String retryCall;	//재콜
+	private String rmk;			//내용
+	private String existCash;	//부채
+	private int logNo;			//로그 번호
+	private String phoneId;		//핸드폰 번호
 	
 	public String getUserNo() {
 		return userNo;
@@ -59,6 +60,12 @@ public class CmmLog {
 	}
 	public void setLogNo(int logNo) {
 		this.logNo = logNo;
+	}
+	public String getPhoneId() {
+		return phoneId;
+	}
+	public void setPhoneId(String phoneId) {
+		this.phoneId = phoneId;
 	}
 	
 }

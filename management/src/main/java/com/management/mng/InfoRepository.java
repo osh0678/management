@@ -1,9 +1,14 @@
 package com.management.mng;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface InfoRepository extends JpaRepository<CmmInfo, String> {
 	Page<CmmInfo> findAll(Pageable request);
+
+	Optional<CmmInfo> findByUserNameAndPhoneId(String userName, String phoneId);
+//	CmmInfo findByUserNameAndPhoneId(String userName, String phoneId);
 }
