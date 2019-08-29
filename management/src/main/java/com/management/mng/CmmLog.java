@@ -16,6 +16,8 @@ public class CmmLog {
 	private String retryCall;  //재콜
 	private String rmk;        //내용
 	private String existCash;  //부채
+	private int logNo;		   //로그 번호
+	
 	public String getUserNo() {
 		return userNo;
 	}
@@ -51,6 +53,12 @@ public class CmmLog {
 	}
 	public void setExistCash(String existCash) {
 		this.existCash = existCash;
+	}
+	public int getLogNo() {
+		return logNo;
+	}
+	public void setLogNo(int logNo) {
+		this.logNo = logNo;
 	}
 	
 }

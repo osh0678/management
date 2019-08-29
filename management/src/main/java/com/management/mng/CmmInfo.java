@@ -23,6 +23,11 @@ public class CmmInfo {
 	private String houseType;    //주거종류
 	private String salary;       //연봉
 	private String location;     //지역
+	private String regUser;      //등록한 계정
+	private String regDt;        //등록한 일시
+	private String uptUser;      //업데이트한 계정
+	private String uptDt;        //업데이트한 일시
+	
 	public String getUserNo() {
 		return userNo;
 	}
@@ -101,6 +106,29 @@ public class CmmInfo {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	
+	public String getRegUser() {
+		return regUser;
+	}
+	public void setRegUser(String regUser) {
+		this.regUser = regUser;
+	}
+	public String getRegDt() {
+		return regDt;
+	}
+	public void setRegDt(String regDt) {
+		this.regDt = regDt;
+	}
+	public String getUptUser() {
+		return uptUser;
+	}
+	public void setUptUser(String uptUser) {
+		this.uptUser = uptUser;
+	}
+	public String getUptDt() {
+		return uptDt;
+	}
+	public void setUptDt(String uptDt) {
+		this.uptDt = uptDt;
+	}
 	
 }
