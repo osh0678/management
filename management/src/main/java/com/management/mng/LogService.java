@@ -32,11 +32,8 @@ public class LogService {
 		return logRepository.findAll(pageable);
 	}
 	
-	public String makeUserSeq() {
-		Optional<MasterSeq> infoSeq = seqRepository.findById(Const.CMM_INFO_SEQ);
-		int cmmSeq = Integer.parseInt(infoSeq.get().getSeqCnt());
-		String seq= Const.CUSTOMER_TYPE + String.format("%09d",cmmSeq);
+	public CmmLog InsertLog(CmmLog cmmLog) {
 		
-		return seq;
+		return logRepository.save(cmmLog);
 	}
 }

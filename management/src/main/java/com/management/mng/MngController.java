@@ -1,5 +1,7 @@
 package com.management.mng;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,26 +58,37 @@ public class MngController {
 	public String addLogDo(CmmLog cmmLog,MasterSeq masterSeq, RedirectAttributes redirectAttributes) {
 		Optional<MasterSeq> logSeq = seqRepository.findById(Const.CMM_LOG_SEQ);
 		Optional<MasterSeq> infoSeq = seqRepository.findById(Const.CMM_INFO_SEQ);
+		
 		int cmmSeq = Integer.parseInt(infoSeq.get().getSeqCnt());
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+		Date todayDate = new Date();
+		String today = dateFormat.format(todayDate);
 		
-		System.out.println(infoSeq.get().getSeqCnt());
-		System.out.println(cmmLog.getPhoneId());
+		System.out.println("오늘 날짜 : " + today);
+		System.out.println("로그 시퀀스 : " + logSeq.get().getSeqCnt());
+		System.out.println("인포 시퀀스 : " + infoSeq.get().getSeqCnt());
 		
+		System.out.println("=============VaildCheck=============");
 		/* 기존 고객 검증 로직 */
 		Optional<CmmInfo> infoCheck = infoRepository.findByUserNameAndPhoneId(cmmLog.getUserName(), cmmLog.getPhoneId());
+		System.out.println("data checking !");
 		if(infoCheck.isPresent()) {
+			System.out.println("infoCheck is not null");
 			if(cmmLog.getUserName().equals(infoCheck.get().getUserName()) && cmmLog.getPhoneId().equals(infoCheck.get().getPhoneId())) {
 				cmmLog.setUserNo(infoCheck.get().getUserNo());
 			}
 		}else {
+			System.out.println("test 여긴가 ?");
 			//기존 정보에 없을 시, 신규 고객키 생성
 			cmmLog.setUserNo(makeUserSeq());
 		}
-	
+		System.out.println("setting Data");
+		cmmLog.setLogDt(today);
+		cmmLog.setLogNo(makeLogSeq());
 		
-		
-		// log로 추후 업데이트
-		System.out.println(cmmLog.getUserNo());
+		// log로 	추후 업데이트
+		System.out.println("getUserNo : " + cmmLog.getUserNo());
+		System.out.println("getLogNo : " + cmmLog.getLogNo());
 		System.out.println("getUserName : " + cmmLog.getUserName());
 		System.out.println("getRetryCall : " + cmmLog.getRetryCall());
 		System.out.println("getRmk : " + cmmLog.getRmk());
@@ -84,9 +97,11 @@ public class MngController {
 		System.out.println("setInfoCount : " + infoSeq.get().getSeqCnt());
 		System.out.println(Const.CUSTOMER_TYPE + String.format("%09d",cmmSeq));
 		
+		System.out.println(cmmLog.toString());
 		
+//		logService.InsertLog(cmmLog);
 		
-//		cmmLog = logRepository.save(cmmLog); //insert 기능
+//		logRepository.save(cmmLog); //insert 기능
 		
 		
 		return "redirect:/mng/cmmlog.vw";
@@ -108,7 +123,20 @@ public class MngController {
 		int cmmSeq = Integer.parseInt(infoSeq.get().getSeqCnt());
 		String seq= Const.CUSTOMER_TYPE + String.format("%09d",cmmSeq);
 		
+		seqRepository.save(Const.UPDATE_SEQ + cmmSeq);
+		
 		return seq;
 	}
 	
+	/**
+	 * 신규 상담 이력 키 생성
+	 * @return seq 
+	 */
+	public int makeLogSeq() {
+		Optional<MasterSeq> infoSeq = seqRepository.findById(Const.CMM_LOG_SEQ);
+		int cmmSeq = Integer.parseInt(infoSeq.get().getSeqCnt());
+//		seqRepository.save(Const.UPDATE_SEQ + cmmSeq);
+		System.out.println("return");
+		return cmmSeq;
+	}
 }
