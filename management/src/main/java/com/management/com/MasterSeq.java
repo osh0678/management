@@ -11,7 +11,7 @@ public class MasterSeq {
 	@Id
 	private String seqName;     //시퀀스 이름
 	
-	private String seqCnt;   //시퀀스 카운트
+	private int seqCnt;   //시퀀스 카운트
 
 	public String getSeqName() {
 		return seqName;
@@ -21,12 +21,12 @@ public class MasterSeq {
 		this.seqName = seqName;
 	}
 
-	public String getSeqCnt() {
+	public int getSeqCnt() {
 		return seqCnt;
 	}
 
-	public void setSeqCnt(String seqCnt) {
-		this.seqCnt = seqCnt;
+	public void setSeqCnt(int cmmSeq) {
+		this.seqCnt = cmmSeq;
 	}
 	
 	

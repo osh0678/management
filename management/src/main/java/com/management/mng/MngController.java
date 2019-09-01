@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.management.com.AppServletUtil;
 import com.management.com.Const;
 import com.management.com.MasterSeq;
 import com.management.com.SeqRepository;
@@ -59,7 +60,7 @@ public class MngController {
 		Optional<MasterSeq> logSeq = seqRepository.findById(Const.CMM_LOG_SEQ);
 		Optional<MasterSeq> infoSeq = seqRepository.findById(Const.CMM_INFO_SEQ);
 		
-		int cmmSeq = Integer.parseInt(infoSeq.get().getSeqCnt());
+		int cmmSeq = infoSeq.get().getSeqCnt();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 		Date todayDate = new Date();
 		String today = dateFormat.format(todayDate);
@@ -80,11 +81,11 @@ public class MngController {
 		}else {
 			System.out.println("test 여긴가 ?");
 			//기존 정보에 없을 시, 신규 고객키 생성
-			cmmLog.setUserNo(makeUserSeq());
+			cmmLog.setUserNo(makeUserSeq(masterSeq));
 		}
 		System.out.println("setting Data");
 		cmmLog.setLogDt(today);
-		cmmLog.setLogNo(makeLogSeq());
+		cmmLog.setLogNo(makeLogSeq(masterSeq));
 		
 		// log로 	추후 업데이트
 		System.out.println("getUserNo : " + cmmLog.getUserNo());
@@ -99,10 +100,7 @@ public class MngController {
 		
 		System.out.println(cmmLog.toString());
 		
-//		logService.InsertLog(cmmLog);
-		
-//		logRepository.save(cmmLog); //insert 기능
-		
+		logService.insertLog(cmmLog); //insert 기능
 		
 		return "redirect:/mng/cmmlog.vw";
 	}
@@ -118,12 +116,15 @@ public class MngController {
 	 * 신규 고객키 생성
 	 * @return seq 
 	 */
-	public String makeUserSeq() {
+	public String makeUserSeq(MasterSeq masterSeq) {
 		Optional<MasterSeq> infoSeq = seqRepository.findById(Const.CMM_INFO_SEQ);
-		int cmmSeq = Integer.parseInt(infoSeq.get().getSeqCnt());
+		int cmmSeq = infoSeq.get().getSeqCnt();
 		String seq= Const.CUSTOMER_TYPE + String.format("%09d",cmmSeq);
 		
-		seqRepository.save(Const.UPDATE_SEQ + cmmSeq);
+		masterSeq.setSeqName(Const.CMM_INFO_SEQ);
+		masterSeq.setSeqCnt(Const.UPDATE_SEQ + cmmSeq);
+		System.out.println(masterSeq.getSeqCnt());
+		seqRepository.save(masterSeq);
 		
 		return seq;
 	}
@@ -132,11 +133,16 @@ public class MngController {
 	 * 신규 상담 이력 키 생성
 	 * @return seq 
 	 */
-	public int makeLogSeq() {
+	public int makeLogSeq(MasterSeq masterSeq) {
 		Optional<MasterSeq> infoSeq = seqRepository.findById(Const.CMM_LOG_SEQ);
-		int cmmSeq = Integer.parseInt(infoSeq.get().getSeqCnt());
-//		seqRepository.save(Const.UPDATE_SEQ + cmmSeq);
-		System.out.println("return");
+		int cmmSeq = infoSeq.get().getSeqCnt();
+		
+		masterSeq.setSeqName(Const.CMM_LOG_SEQ);
+		masterSeq.setSeqCnt(Const.UPDATE_SEQ + cmmSeq);
+		System.out.println(masterSeq.getSeqCnt());
+		seqRepository.save(masterSeq);
+		
+		System.out.println("신규 상담 이력 키 증가");
 		return cmmSeq;
 	}
 }

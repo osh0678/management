@@ -1,28 +1,24 @@
 package com.management.mng;
 
-
-import java.util.Optional;
-
-//import java.util.Optional;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.management.com.Const;
-import com.management.com.MasterSeq;
 import com.management.com.SeqRepository;
+
+//import com.management.com.SeqRepository;
 
 @Service
 public class LogService {
 
 	private LogRepository logRepository;
-	private InfoRepository infoRepository;
+//	private InfoRepository infoRepository;
 	private SeqRepository seqRepository;
 	
-	public LogService(LogRepository logRepository) {
+	public LogService(LogRepository logRepository, SeqRepository seqRepository) {
 		this.logRepository = logRepository;
+		this.seqRepository = seqRepository;
 	}
 	
 	public Page<CmmLog> cmmInfoVW(Pageable pageable){
@@ -32,8 +28,9 @@ public class LogService {
 		return logRepository.findAll(pageable);
 	}
 	
-	public CmmLog InsertLog(CmmLog cmmLog) {
-		
-		return logRepository.save(cmmLog);
+	public void insertLog(CmmLog cmmLog) {
+		System.out.println("InsertLog : " + cmmLog.getUserNo());
+		logRepository.save(cmmLog);
+		System.out.println("finish insert");
 	}
 }
