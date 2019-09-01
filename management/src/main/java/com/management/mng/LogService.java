@@ -25,12 +25,31 @@ public class LogService {
 		this.seqRepository = seqRepository;
 	}
 	
-	public Page<CmmLog> cmmInfoVW(Pageable pageable){
+	/**
+	 * 고객이력페이지 뷰
+	 * @param pageable
+	 * @return
+	 */
+	public Page<CmmLog> cmmLogVW(Pageable pageable){
 		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
 		pageable = PageRequest.of(page, 10);
 		
 		return logRepository.findAll(pageable);
 	}
+	
+	
+	/**
+	 * 고객이력페이지 검색
+	 * @param pageable
+	 * @return
+	 */
+	public Page<CmmLog> searchLog(Pageable pageable, String	keyword){
+		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
+		pageable = PageRequest.of(page, 10);
+		
+		return logRepository.findAll(pageable);
+	}
+	
 	
 	/** 상담이력 생성
 	 * @param cmmLog

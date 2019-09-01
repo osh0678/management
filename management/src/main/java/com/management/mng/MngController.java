@@ -13,7 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.management.com.Const;
 import com.management.com.MasterSeq;
@@ -28,8 +28,8 @@ public class MngController {
 	@Autowired
 	private InfoRepository infoRepository;
 	
-	@Autowired
-	private LogRepository logRepository;
+//	@Autowired
+//	private LogRepository logRepository;
 	
 	@Autowired 
 	private SeqRepository seqRepository;
@@ -41,11 +41,29 @@ public class MngController {
 	
 	@GetMapping("/cmmlog.vw")
 	public String cmmlogVw(@PageableDefault Pageable pageable, Model model){
-		Page<CmmLog> logPage = logService.cmmInfoVW(pageable);
+		Page<CmmLog> logPage = logService.cmmLogVW(pageable);
 		model.addAttribute("list", logPage);
 		
 		return "mng/cmmlog";
 	}
+	
+
+	/**
+	 * 상담이력검색
+	 * @param pageable
+	 * @param model
+	 * @param cmmLog
+	 * @return
+	 */
+	@RequestMapping(value="/cmmlog.do", method = RequestMethod.GET)
+	public String searchLogDo(@PageableDefault Pageable pageable,Model model, @RequestParam("keyword") String keyword) {
+		System.out.println("검색어 : " + keyword);
+		Page<CmmLog> logPage = logService.searchLog(pageable, keyword);
+		model.addAttribute("list", logPage);
+		
+		return "/mng/cmmlog";
+	}
+	
 	
 	/**
 	 * 상담 이력 추가
@@ -55,7 +73,7 @@ public class MngController {
 	 * @return
 	 */
 	@RequestMapping(value="/addLog.do", method = RequestMethod.GET)
-	public String addLogDo(CmmLog cmmLog,MasterSeq masterSeq, CmmInfo cmmInfo,RedirectAttributes redirectAttributes) {
+	public String addLogDo(CmmLog cmmLog,MasterSeq masterSeq, CmmInfo cmmInfo) {
 		Optional<MasterSeq> logSeq = seqRepository.findById(Const.CMM_LOG_SEQ);
 		Optional<MasterSeq> infoSeq = seqRepository.findById(Const.CMM_INFO_SEQ);
 		
@@ -106,11 +124,12 @@ public class MngController {
 		
 		System.out.println(cmmLog.toString());
 		
-		logService.insertLog(cmmLog); //insert 기능
+		//고객 이력 추가
+		logService.insertLog(cmmLog); 
 		
 		return "redirect:/mng/cmmlog.vw";
 	}
-	
+
 	@GetMapping("/cmmInfo.vw")
 	public String cmmInfoVw(@PageableDefault Pageable pageable, Model model) {
 		Page<CmmInfo> infoPage = infoService.cmmInfoVW(pageable);
