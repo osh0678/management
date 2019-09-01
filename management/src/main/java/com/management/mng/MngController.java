@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.management.com.AppServletUtil;
 import com.management.com.Const;
 import com.management.com.MasterSeq;
 import com.management.com.SeqRepository;
@@ -56,7 +55,7 @@ public class MngController {
 	 * @return
 	 */
 	@RequestMapping(value="/addLog.do", method = RequestMethod.GET)
-	public String addLogDo(CmmLog cmmLog,MasterSeq masterSeq, RedirectAttributes redirectAttributes) {
+	public String addLogDo(CmmLog cmmLog,MasterSeq masterSeq, CmmInfo cmmInfo,RedirectAttributes redirectAttributes) {
 		Optional<MasterSeq> logSeq = seqRepository.findById(Const.CMM_LOG_SEQ);
 		Optional<MasterSeq> infoSeq = seqRepository.findById(Const.CMM_INFO_SEQ);
 		
@@ -79,13 +78,20 @@ public class MngController {
 				cmmLog.setUserNo(infoCheck.get().getUserNo());
 			}
 		}else {
-			System.out.println("test 여긴가 ?");
-			//기존 정보에 없을 시, 신규 고객키 생성
-			cmmLog.setUserNo(makeUserSeq(masterSeq));
+			//기존  고객 정보에 없을 시, 신규 고객키 생성
+			cmmLog.setUserNo(infoService.makeUserSeq(masterSeq));
+			
+			cmmInfo.setUserNo(cmmLog.getUserNo());
+			cmmInfo.setUserName(cmmLog.getUserName());
+			cmmInfo.setPhoneId(cmmLog.getPhoneId());
+			cmmInfo.setRegUser("webadmin");
+			cmmInfo.setRegDt(today);
+			
+			infoRepository.save(cmmInfo);
 		}
 		System.out.println("setting Data");
 		cmmLog.setLogDt(today);
-		cmmLog.setLogNo(makeLogSeq(masterSeq));
+		cmmLog.setLogNo(logService.makeLogSeq(masterSeq));
 		
 		// log로 	추후 업데이트
 		System.out.println("getUserNo : " + cmmLog.getUserNo());
@@ -104,7 +110,7 @@ public class MngController {
 		
 		return "redirect:/mng/cmmlog.vw";
 	}
-
+	
 	@GetMapping("/cmmInfo.vw")
 	public String cmmInfoVw(@PageableDefault Pageable pageable, Model model) {
 		Page<CmmInfo> infoPage = infoService.cmmInfoVW(pageable);
@@ -112,37 +118,4 @@ public class MngController {
 		return "mng/cmmInfo";
 	}
 	
-	/**
-	 * 신규 고객키 생성
-	 * @return seq 
-	 */
-	public String makeUserSeq(MasterSeq masterSeq) {
-		Optional<MasterSeq> infoSeq = seqRepository.findById(Const.CMM_INFO_SEQ);
-		int cmmSeq = infoSeq.get().getSeqCnt();
-		String seq= Const.CUSTOMER_TYPE + String.format("%09d",cmmSeq);
-		
-		masterSeq.setSeqName(Const.CMM_INFO_SEQ);
-		masterSeq.setSeqCnt(Const.UPDATE_SEQ + cmmSeq);
-		System.out.println(masterSeq.getSeqCnt());
-		seqRepository.save(masterSeq);
-		
-		return seq;
-	}
-	
-	/**
-	 * 신규 상담 이력 키 생성
-	 * @return seq 
-	 */
-	public int makeLogSeq(MasterSeq masterSeq) {
-		Optional<MasterSeq> infoSeq = seqRepository.findById(Const.CMM_LOG_SEQ);
-		int cmmSeq = infoSeq.get().getSeqCnt();
-		
-		masterSeq.setSeqName(Const.CMM_LOG_SEQ);
-		masterSeq.setSeqCnt(Const.UPDATE_SEQ + cmmSeq);
-		System.out.println(masterSeq.getSeqCnt());
-		seqRepository.save(masterSeq);
-		
-		System.out.println("신규 상담 이력 키 증가");
-		return cmmSeq;
-	}
 }

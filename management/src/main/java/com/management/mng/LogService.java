@@ -1,10 +1,14 @@
 package com.management.mng;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.management.com.Const;
+import com.management.com.MasterSeq;
 import com.management.com.SeqRepository;
 
 //import com.management.com.SeqRepository;
@@ -28,9 +32,29 @@ public class LogService {
 		return logRepository.findAll(pageable);
 	}
 	
+	/** 상담이력 생성
+	 * @param cmmLog
+	 */
 	public void insertLog(CmmLog cmmLog) {
 		System.out.println("InsertLog : " + cmmLog.getUserNo());
 		logRepository.save(cmmLog);
 		System.out.println("finish insert");
+	}
+	
+	/**
+	 * 신규 상담 이력 키 생성
+	 * @return seq 
+	 */
+	public int makeLogSeq(MasterSeq masterSeq) {
+		Optional<MasterSeq> infoSeq = seqRepository.findById(Const.CMM_LOG_SEQ);
+		int cmmSeq = infoSeq.get().getSeqCnt();
+		
+		masterSeq.setSeqName(Const.CMM_LOG_SEQ);
+		masterSeq.setSeqCnt(Const.UPDATE_SEQ + cmmSeq);
+		System.out.println(masterSeq.getSeqCnt());
+		seqRepository.save(masterSeq);
+		
+		System.out.println("신규 상담 이력 키 증가");
+		return cmmSeq;
 	}
 }
