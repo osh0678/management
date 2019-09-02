@@ -43,6 +43,12 @@ public class MngController {
 	public String cmmlogVw(@PageableDefault Pageable pageable, Model model){
 		Page<CmmLog> logPage = logService.cmmLogVW(pageable);
 		model.addAttribute("list", logPage);
+		System.out.println("[cmmlog.vw] pageable : " + pageable);
+		System.out.println("총 Element 수 : " + logPage.getTotalElements());
+		System.out.println("전체 page 수 : " + logPage.getTotalPages());
+		System.out.println("페이지에 표시할 element 수 : " + logPage.getSize());
+		System.out.println("현재 페이지 index : " + logPage.getNumber());
+		System.out.println("현재 페이지의 element 수 :" + logPage.getNumberOfElements());
 		
 		return "mng/cmmlog";
 	}
@@ -58,8 +64,19 @@ public class MngController {
 	@RequestMapping(value="/cmmlog.do", method = RequestMethod.GET)
 	public String searchLogDo(@PageableDefault Pageable pageable,Model model, @RequestParam("keyword") String keyword) {
 		System.out.println("검색어 : " + keyword);
+		if(keyword == "" || keyword == null) {
+			return "redirect:/mng/cmmlog.vw";
+		}
 		Page<CmmLog> logPage = logService.searchLog(pageable, keyword);
 		model.addAttribute("list", logPage);
+		
+		System.out.println("[cmmlog.do] pageable : " + pageable);
+		System.out.println("총 Element 수 : " + logPage.getTotalElements());
+		System.out.println("전체 page 수 : " + logPage.getTotalPages());
+		System.out.println("페이지에 표시할 element 수 : " + logPage.getSize());
+		System.out.println("현재 페이지 index : " + logPage.getNumber());
+		System.out.println("현재 페이지의 element 수 :" + logPage.getNumberOfElements());
+		
 		
 		return "/mng/cmmlog";
 	}

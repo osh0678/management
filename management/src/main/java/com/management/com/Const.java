@@ -10,4 +10,7 @@ public class Const {
 	
 	public final static String USER_TYPE = "M";					// 사용자 타입
 	public final static String CUSTOMER_TYPE = "C";				// 고객타입
+	
+	public final static int PAGE_MAX_ELEMENT = 10;				// 페이지에 표시할 로우 수
+	public final static int PAGE_FIRST_PAGE = 1;				// 첫 페이지
 }

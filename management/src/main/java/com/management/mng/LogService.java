@@ -31,8 +31,8 @@ public class LogService {
 	 * @return
 	 */
 	public Page<CmmLog> cmmLogVW(Pageable pageable){
-		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
-		pageable = PageRequest.of(page, 10);
+		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - Const.PAGE_FIRST_PAGE); // page는 index 처럼 0부터 시작
+		pageable = PageRequest.of(page, Const.PAGE_MAX_ELEMENT);
 		
 		return logRepository.findAll(pageable);
 	}
@@ -44,8 +44,8 @@ public class LogService {
 	 * @return
 	 */
 	public Page<CmmLog> searchLog(Pageable pageable, String	keyword){
-		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
-		pageable = PageRequest.of(page, 10);
+		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - Const.PAGE_FIRST_PAGE); // page는 index 처럼 0부터 시작
+		pageable = PageRequest.of(page, Const.PAGE_MAX_ELEMENT);
 		
 		return logRepository.findAll(pageable);
 	}
