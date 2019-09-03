@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.management.com.Const;
 import com.management.com.MasterSeq;
@@ -62,7 +63,7 @@ public class MngController {
 	 * @return
 	 */
 	@RequestMapping(value="/cmmlog.do", method = RequestMethod.GET)
-	public String searchLogDo(@PageableDefault Pageable pageable,Model model, @RequestParam("keyword") String keyword) {
+	public String searchLogDo(@PageableDefault Pageable pageable,Model model, @RequestParam("keyword") String keyword, RedirectAttributes redirectAttributes) {
 		System.out.println("검색어 : " + keyword);
 		if(keyword == "" || keyword == null) {
 			return "redirect:/mng/cmmlog.vw";
@@ -77,8 +78,8 @@ public class MngController {
 		System.out.println("현재 페이지 index : " + logPage.getNumber());
 		System.out.println("현재 페이지의 element 수 :" + logPage.getNumberOfElements());
 		
-		
-		return "/mng/cmmlog";
+		redirectAttributes.addAttribute("keyword", keyword);
+		return "mng/cmmlog";
 	}
 	
 	
