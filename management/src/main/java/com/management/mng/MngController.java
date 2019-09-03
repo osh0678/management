@@ -148,11 +148,60 @@ public class MngController {
 		return "redirect:/mng/cmmlog.vw";
 	}
 
+	/**
+	 * 고객정보 뷰 페이지
+	 * @param pageable
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/cmmInfo.vw")
 	public String cmmInfoVw(@PageableDefault Pageable pageable, Model model) {
 		Page<CmmInfo> infoPage = infoService.cmmInfoVW(pageable);
 		model.addAttribute("list", infoPage);
 		return "mng/cmmInfo";
+	}
+	
+	/**
+	 * 고객 정보 추가 페이지
+	 * @param masterSeq
+	 * @param cmmInfo
+	 * @return
+	 */
+	@RequestMapping(value="/addInfo.do", method = RequestMethod.GET)
+	public String addInfoDo(MasterSeq masterSeq, CmmInfo cmmInfo) {
+		Optional<MasterSeq> infoSeq = seqRepository.findById(Const.CMM_INFO_SEQ);
+		
+		int cmmSeq = infoSeq.get().getSeqCnt();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+		Date todayDate = new Date();
+		String today = dateFormat.format(todayDate);
+		
+		System.out.println("오늘 날짜 : " + today);
+		System.out.println("인포 시퀀스 : " + cmmSeq);
+		
+		System.out.println("=============VaildCheck=============");
+		/* 기존 고객 검증 로직 */
+		Optional<CmmInfo> infoCheck = infoRepository.findByUserNameAndPhoneId(cmmInfo.getUserName(), cmmInfo.getPhoneId());
+		System.out.println("data checking !");
+		if(infoCheck.isPresent()) {
+			System.out.println("infoCheck is not null");
+			if(cmmInfo.getUserName().equals(infoCheck.get().getUserName()) && cmmInfo.getPhoneId().equals(infoCheck.get().getPhoneId())) {
+				System.out.println("이미 등록된 고객입니다.");
+			}
+		}else {
+			//기존  고객 정보에 없을 시, 신규 고객키 생성
+			cmmInfo.setUserNo(infoService.makeUserSeq(masterSeq));
+			
+			cmmInfo.setUserNo(cmmInfo.getUserNo());
+			cmmInfo.setUserName(cmmInfo.getUserName());
+			cmmInfo.setPhoneId(cmmInfo.getPhoneId());
+			cmmInfo.setRegUser("webadmin");
+			cmmInfo.setRegDt(today);
+			
+			infoRepository.save(cmmInfo);
+		}
+		
+		return "redirect:/mng/cmmInfo.vw";
 	}
 	
 }
