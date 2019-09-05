@@ -7,8 +7,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>고객관리페이지</title>
+    <th:block layout:fragment="script">
+    	<script src="../js/modifyContent.js"></script>
+    </th:block>
 </head>
-
 <body>
     <!-- ============================================================== -->
     <!-- main wrapper -->
@@ -67,7 +69,7 @@
                                 <div class="row">
                                 		<div class="col-md-8"></div>
                                 		<div class="col-md-1"> 
-											<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addLog">
+											<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addInfo">
   												고객정보추가
 											</button>
                                 		</div>
@@ -115,7 +117,8 @@
                                                 <td th:text="${row.carYn}"></td>
                                                 <td th:text="${row.houseType}"></td>
                                                 <td th:text="${row.location}"></td>
-                                                <td><a href="#" class="btn-sm btn-primary">수정</a></td>
+<!--                                                 <td><a href="javascript:setModifyInfo('test')" class="btn-sm btn-primary">수정</a></td> -->
+                                                <td><a th:href="|javascript:setModifyInfo('${row.userName}','${row.telecomType}','${row.phoneId}','${row.userSeq}','${row.creditRating}','${row.salary}','${row.workName}','${row.workType}','${row.workYn}', '${row.carYn}','${row.houseType}','${row.location}', '${row.userNo}')|" th:text="수정" class="btn-sm btn-primary"></a></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -154,8 +157,8 @@
                         <!-- end hoverable table -->
                         <!-- ============================================================== -->
                     </div>
-                    <!-- Modal -->
-					<div class="modal fade" id="addLog" tabindex="-1" role="dialog" aria-labelledby="ModalLabel">
+                    <!-- add Modal -->
+					<div class="modal fade" id="addInfo" tabindex="-1" role="dialog" aria-labelledby="ModalLabel">
   						<div class="modal-dialog modal-lg" role="document">
                             <form action="addInfo.do" method="GET">
     							<div class="modal-content">
@@ -247,6 +250,111 @@
                                                 		<input type="text" name="location" placeholder="지역을 적어주세요." class="form-control">
                                             		</div>
                                         		</div>
+                                			</div>
+                            			</div>
+	      							</div>
+      								<div class="modal-footer">
+        								<button type="submit" class="btn btn-primary">저장</button>
+	        							<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+    	  							</div>
+    							</div>
+                            </form>
+  						</div>
+					</div>
+					<!-- modify Modal -->
+					<div class="modal fade" id="modifyInfo" tabindex="-1" role="dialog" aria-labelledby="ModalLabel">
+  						<div class="modal-dialog modal-lg" role="document">
+                            <form action="modifyInfo.do" method="GET">
+    							<div class="modal-content">
+      								<div class="modal-header">
+        								<h4 class="modal-title" id="ModalLabel">고객 정보 수정</h4>
+        								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      								</div>
+    	  							<div class="modal-body">
+      									<div class="card">
+                                			<div class="card-body">
+                                        		<div class="form-group row">
+                                            		<label class="col-2 col-sm-2 col-form-label text-sm-right">고객이름</label>
+                                            			<div class="col-4 col-sm-4 col-lg-4">
+                                                			<input type="text" id="userName" name="userName" placeholder="고객 이름을 적어주세요." class="form-control">
+                                            			</div>
+                                            		
+                                            		<label class="col-1 col-sm-1 col-form-label text-sm-right">연봉</label>
+                                            			<div class="col-4 col-sm-4 col-lg-4">
+	                                                		<input type="text" id="salary" name="salary" placeholder="연봉을 적어주세요." class="form-control">
+                                            			</div>
+                                        		</div>
+                                        		
+                                        		<div class="form-group row">
+                                            		<label class="col-2 col-sm-2 col-form-label text-sm-right">고객 전화번호</label>
+                                            		<div class="col-4 col-sm-4 col-lg-4">
+                                                		<input type="text" id="phoneId" name="phoneId" placeholder="번호를 적어주세요." class="form-control">
+                                            		</div>
+                                            		
+                                            		<label class="col-1 col-sm-1 col-form-label text-sm-right">통신사</label>
+                                            		<div class="col-4 col-sm-4 col-lg-4">
+                                                		<input type="text" id="telecomType" name="telecomType" placeholder="통신사를 적어주세요." class="form-control">
+                                            		</div>
+                                        		</div>
+                                        		
+                                        		<div class="form-group row">
+                                            		<label class="col-2 col-sm-2 col-form-label text-sm-right">주민번호</label>
+                                            			<div class="col-4 col-sm-4 col-lg-4">
+                                                			<input type="text" id="userSeq" name="userSeq" placeholder="주민번호를 적어주세요." class="form-control">
+                                            			</div>
+                                            			
+                                            		<label class="col-1 col-sm-1 col-form-label text-sm-right">신용등급</label>
+                                            		<div class="col-4 col-sm-4 col-lg-4">
+                                                		<input type="text" id="creditRating" name="creditRating" placeholder="신용등급을 적어주세요." class="form-control">
+                                            		</div>
+                                        		</div>
+                                        		
+                                        		<div class="form-group row">
+                                            		<label class="col-2 col-sm-2 col-form-label text-sm-right">직장명</label>
+                                            		<div class="col-4 col-sm-4 col-lg-4">
+                                                		<input type="text" id="workName" name="workName" placeholder="직장명을 적어주세요." class="form-control">
+                                            		</div>
+                                            		
+                                            		<label class="col-1 col-sm-1 col-form-label text-sm-right">직장구분</label>
+                                            		<div class="col-4 col-sm-4 col-lg-4">
+                                                		<input type="text" id="workType" name="workType" placeholder="직장구분 적어주세요." class="form-control">
+                                            		</div>
+                                        		</div>
+                                        		
+                                        		<div class="form-group row">
+                                            		<label class="col-2 col-sm-2 col-form-label text-sm-right">재직유무</label>
+                                            		<div class="col-4 col-sm-4 col-lg-4">
+                            	                		<label class="custom-control custom-checkbox custom-control-inline">
+                        	                        		<input type="checkbox" class="custom-control-input" checked="checked" id="workYn" name="workYn" value="Y"><span class="custom-control-label">예</span>
+                    	                        		</label>
+                	                            		<label class="custom-control custom-checkbox custom-control-inline">
+            	                                    		<input type="checkbox" class="custom-control-input" id="workYn" name="workYn" value="N"><span class="custom-control-label">아니오</span>
+        	                                    		</label>
+                                            		</div>
+                                            		
+                                            		<label class="col-1 col-sm-1 col-form-label text-sm-right">자가유무</label>
+                                            		<div class="col-4 col-sm-4 col-lg-4">
+                                                		<label class="custom-control custom-checkbox custom-control-inline">
+                        	                        		<input type="checkbox" class="custom-control-input" checked="checked" id="carYn" name="carYn" value="Y"><span class="custom-control-label">예</span>
+                    	                        		</label>
+                	                            		<label class="custom-control custom-checkbox custom-control-inline">
+            	                                    		<input type="checkbox" class="custom-control-input" id="carYn" name="carYn" value="N"><span class="custom-control-label">아니오</span>
+        	                                    		</label>
+                                            		</div>
+                                        		</div>
+                                        		
+                                        		<div class="form-group row">
+                                            		<label class="col-2 col-sm-2 col-form-label text-sm-right">주거종류</label>
+                                            		<div class="col-4 col-sm-4 col-lg-4">
+                                                		<input type="text" id="houseType" name="houseType" placeholder="주거종류 적어주세요." class="form-control">
+                                            		</div>
+                                            		
+                                            		<label class="col-1 col-sm-1 col-form-label text-sm-right">지역</label>
+                                            		<div class="col-4 col-sm-4 col-lg-4">
+                                                		<input type="text" id="location" name="location" placeholder="지역을 적어주세요." class="form-control">
+                                            		</div>
+                                        		</div>
+                                        		<input type="hidden" id="userNo" name="userNo"/>
                                 			</div>
                             			</div>
 	      							</div>

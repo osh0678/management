@@ -1,5 +1,6 @@
 package com.management.mng;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -9,12 +10,20 @@ import javax.persistence.Table;
 public class CmmInfo {
 	
 	@Id
+	@Column(updatable=false)
 	private String userNo;       //고객키값
 	
+	@Column(updatable=false)
 	private String userName;     //고객 이름
+	
+	@Column(updatable=false)
 	private String phoneId;      //핸드폰번호
+	
 	private String telecomType;  //통신사
+	
+	@Column(updatable=false)
 	private String userSeq;      //주민번호
+	
 	private String creditRating; //신용등급
 	private String workType;     //직장구분
 	private String workName;     //직장명
@@ -23,8 +32,13 @@ public class CmmInfo {
 	private String houseType;    //주거종류
 	private String salary;       //연봉
 	private String location;     //지역
+	
+	@Column(updatable=false)
 	private String regUser;      //등록한 계정
+	
+	@Column(updatable=false)
 	private String regDt;        //등록한 일시
+	
 	private String uptUser;      //업데이트한 계정
 	private String uptDt;        //업데이트한 일시
 	

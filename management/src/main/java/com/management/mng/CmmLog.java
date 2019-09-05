@@ -1,5 +1,6 @@
 package com.management.mng;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -9,15 +10,21 @@ import javax.persistence.Table;
 public class CmmLog {
 	
 	@Id
+	@Column(updatable=false)
 	private int logNo;			//로그 번호
 
+	@Column(updatable=false)
 	private String userNo;		//고객 키값
+	
+	@Column(updatable=false)
 	private String userName;	//고객이름
+	
+	@Column(updatable=false)
 	private String logDt;		//로그 이력
+	
 	private String retryCall;	//재콜
 	private String rmk;			//내용
 	private String existCash;	//부채
-	
 	private String phoneId;		//핸드폰 번호
 	
 	public String getUserNo() {

@@ -233,4 +233,31 @@ public class MngController {
 		return "redirect:/mng/cmmInfo.vw";
 	}
 	
+	@RequestMapping(value="/modifyInfo.do", method = RequestMethod.GET)
+	public String modifyInfoDo(MasterSeq masterSeq, CmmInfo cmmInfo) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+
+		Date todayDate = new Date();
+		String today = dateFormat.format(todayDate);
+		
+		System.out.println("오늘 날짜 : " + today);
+		
+		System.out.println("=============VaildCheck=============");
+		/* 기존 고객 검증 로직 */
+		Optional<CmmInfo> infoCheck = infoRepository.findByUserNo(cmmInfo.getUserNo());
+		System.out.println("data checking !");
+		if(infoCheck.isPresent()) {
+			System.out.println("infoCheck is not null");
+			if(cmmInfo.getUserName().equals(infoCheck.get().getUserName()) && cmmInfo.getPhoneId().equals(infoCheck.get().getPhoneId())) {
+				cmmInfo.setUptUser("webadmin");
+				cmmInfo.setUptDt(today);
+				infoRepository.save(cmmInfo);
+			}
+		}else {
+			
+			
+		}
+		
+		return "redirect:/mng/cmmInfo.vw";
+	}
 }

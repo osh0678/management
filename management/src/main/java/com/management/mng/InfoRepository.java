@@ -11,5 +11,5 @@ public interface InfoRepository extends JpaRepository<CmmInfo, String> {
 	Page<CmmInfo> findByUserNameOrPhoneIdOrWorkNameOrLocation(String userName, String phoneId, String workName, String location, Pageable page);
 
 	Optional<CmmInfo> findByUserNameAndPhoneId(String userName, String phoneId);
-//	CmmInfo findByUserNameAndPhoneId(String userName, String phoneId);
+	Optional<CmmInfo> findByUserNo(String userNo);
 }
