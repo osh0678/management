@@ -162,6 +162,35 @@ public class MngController {
 	}
 	
 	/**
+	 * 고객정보 검색
+	 * @param pageable
+	 * @param model
+	 * @param keyword
+	 * @param redirectAttributes
+	 * @return
+	 */
+	@RequestMapping(value="/cmmInfo.do", method = RequestMethod.GET)
+	public String searchInfoDo(@PageableDefault Pageable pageable,Model model, @RequestParam("keyword") String keyword, RedirectAttributes redirectAttributes) {
+		System.out.println("검색어 : " + keyword);
+		if(keyword == "" || keyword == null) {
+			return "redirect:/mng/cmmInfo.vw";
+		}
+		Page<CmmInfo> infoPage = infoService.searchInfo(pageable, keyword);
+		model.addAttribute("list", infoPage);
+		
+		System.out.println("[cmmlog.do] pageable : " + pageable);
+		System.out.println("총 Element 수 : " + infoPage.getTotalElements());
+		System.out.println("전체 page 수 : " + infoPage.getTotalPages());
+		System.out.println("페이지에 표시할 element 수 : " + infoPage.getSize());
+		System.out.println("현재 페이지 index : " + infoPage.getNumber());
+		System.out.println("현재 페이지의 element 수 :" + infoPage.getNumberOfElements());
+		
+		redirectAttributes.addAttribute("keyword", keyword);
+		return "mng/cmmInfo";
+	}
+	
+	
+	/**
 	 * 고객 정보 추가 페이지
 	 * @param masterSeq
 	 * @param cmmInfo
