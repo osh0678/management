@@ -7,6 +7,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>고객관리페이지</title>
+    <th:block layout:fragment="script">
+    	<script src="../js/modifyContent.js"></script>
+    </th:block>
 <style type="text/css">
 	.mb-3{
 		margin-top: 10px
@@ -106,6 +109,7 @@
                                                 <td th:text="${row.retryCall}" class="text-left"></td>
                                                 <td th:text="${row.rmk}" class="text-left"></td>
                                                 <td th:text="${row.existCash}" class="text-left"></td>
+<!--                                                 <td><a th:href="|javascript:setModifyLog('${row.userName}', '${row.userNo}','${row.retryCall}','${row.rmk}','${row.existCash}')|" th:text="수정" class="btn btn-sm btn-outline-light"></a></td> -->
                                             </tr>
                                         </tbody>
                                     </table>
@@ -197,6 +201,62 @@
                             </form>
   						</div>
 					</div>
+					<!-- Modal End -->
+					
+					<!-- modify Modal -->
+					<div class="modal fade" id="modifyLog" tabindex="-1" role="dialog" aria-labelledby="ModalLabel">
+  						<div class="modal-dialog modal-lg" role="document">
+                            <form action="modifyLog.do" method="GET">
+    							<div class="modal-content">
+      								<div class="modal-header">
+        								<h4 class="modal-title" id="ModalLabel">고객 정보 수정</h4>
+        								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      								</div>
+    	  							<div class="modal-body">
+      									<div class="card">
+                                			<div class="card-body">
+                                        		<div class="form-group row">
+                                            		<label class="col-2 col-sm-2 col-form-label text-sm-right">고객이름</label>
+                                            			<div class="col-4 col-sm-4 col-lg-4">
+                                                			<input type="text" id="userName" name="userName" class="form-control">
+                                            			</div>
+                                            		
+                                            		<label class="col-2 col-sm-2 col-form-label text-sm-right">고객 고유 번호</label>
+                                            			<div class="col-4 col-sm-4 col-lg-4">
+	                                                		<input type="text" id="userNo" name="userNo" class="form-control">
+                                            			</div>
+                                        		</div>
+                                        		
+                                        		<div class="form-group row">
+                                            		<label class="col-2 col-sm-2 col-form-label text-sm-right">재콜</label>
+                                            		<div class="col-4 col-sm-4 col-lg-4">
+                                                		<input type="text" id="retryCall" name="retryCall" placeholder="재콜 여부를 적어주세요." class="form-control">
+                                            		</div>
+                                            		
+                                            		<label class="col-2 col-sm-2 col-form-label text-sm-right">기존부채현황</label>
+                                            		<div class="col-4 col-sm-4 col-lg-4">
+                                                		<input type="text" id="existCash" name="existCash" placeholder="기존 부채현황을 적어주세요." class="form-control">
+                                            		</div>
+                                        		</div>
+                                        		
+                                        		<div class="form-group row">
+                                            		<label class="col-2 col-sm-2 col-form-label text-sm-right">내용</label>
+                                            			<div class="col-10 col-sm-10 col-lg-10">
+                                                			<input type="text" id="rmk" name="rmk" placeholder="내용을 적어주세요." class="form-control">
+                                            			</div>
+                                        		</div>
+                                			</div>
+                            			</div>
+	      							</div>
+      								<div class="modal-footer">
+        								<button type="submit" class="btn btn-primary">저장</button>
+	        							<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+    	  							</div>
+    							</div>
+                            </form>
+  						</div>
+					</div>
+					<!-- modify Modal End -->
             </div>
             <!-- ============================================================== -->
             <!-- footer -->

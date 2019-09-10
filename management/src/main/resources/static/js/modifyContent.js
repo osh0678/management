@@ -15,3 +15,12 @@ function setModifyInfo(userName, telecomType, phoneId, userSeq, creditRating,
 	document.getElementById("userNo").value		= userNo
 	$('#modifyInfo').modal('show');
 }
+
+function setModifyLog(userName, userNo, retryCall, rmk, existCash) {
+	document.getElementById("userName").value 		= userName
+	document.getElementById("userNo").value 		= userNo
+	document.getElementById("retryCall").value		= retryCall
+	document.getElementById("rmk").value			= rmk
+	document.getElementById("existCash").value		= existCash
+	$('#modifyLog').modal('show');
+}
