@@ -6,18 +6,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="user_info")
-public class User {
+@Table(name="user_pw")
+public class UserPw {
 
 	@Id
 	@Column(updatable=false)
 	private String userNo;		//유저 키값
-	
-	@Column(updatable=false)
-	private String userId;		//유저 아이디
-	private String userName;	//유저 이름
-	private String delYn;		//삭제유무
-	private String failCnt;		//실패 카운트
+	private String userPw;		//유저 비밀번호
 	
 	@Column(updatable=false)
 	private String regUser;		//등록 유저
@@ -25,9 +20,12 @@ public class User {
 	@Column(updatable=false)
 	private String regDt;		//등록일
 	
+	
 	private String uptUser;		//수정 유저
 	private String uptDt;		//수정일
 	
+	private String lastPw;		//마지막 패스워드
+	private String lastDt;		//마지막 변경일
 	
 	public String getUserNo() {
 		return userNo;
@@ -35,29 +33,11 @@ public class User {
 	public void setUserNo(String userNo) {
 		this.userNo = userNo;
 	}
-	public String getUserId() {
-		return userId;
+	public String getUserPw() {
+		return userPw;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	public String getDelYn() {
-		return delYn;
-	}
-	public void setDelYn(String delYn) {
-		this.delYn = delYn;
-	}
-	public String getFailCnt() {
-		return failCnt;
-	}
-	public void setFailCnt(String failCnt) {
-		this.failCnt = failCnt;
+	public void setUserPw(String userPw) {
+		this.userPw = userPw;
 	}
 	public String getRegUser() {
 		return regUser;
@@ -83,6 +63,17 @@ public class User {
 	public void setUptDt(String uptDt) {
 		this.uptDt = uptDt;
 	}
-	
+	public String getLastPw() {
+		return lastPw;
+	}
+	public void setLastPw(String lastPw) {
+		this.lastPw = lastPw;
+	}
+	public String getLastDt() {
+		return lastDt;
+	}
+	public void setLastDt(String lastDt) {
+		this.lastDt = lastDt;
+	}
 	
 }
