@@ -23,13 +23,13 @@ public class UserController {
 		}
 
 		@RequestMapping(value="/login.do", method = RequestMethod.POST)
-		public String loginDo(User user, RedirectAttributes redirectAttributes) throws Exception{
+		public String loginDo(User user, UserPw userPw, RedirectAttributes redirectAttributes) throws Exception{
 			System.out.println("user id : " + user.getUserId());
-			System.out.println("user pw : " + user.getUserPw());
+			System.out.println("user pw : " + userPw.getUserPw());
 			
 			if(user.getUserId() == null || user.getUserId() == "") {
 				System.out.println("아이디를 입력해주세요.");
-			}else if(user.getUserPw() == null || user.getUserPw() == "") {
+			}else if(userPw.getUserPw() == null || userPw.getUserPw() == "") {
 				System.out.println("패스워드를 입력해주세요.");
 			}else {
 				System.out.println("로그인 성공 !!");
